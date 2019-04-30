@@ -101,7 +101,7 @@ if [ ${stage} -le 1 ]; then
     mfccdir=mfcc
     # Generate the fbank features; by default 80-dimensional fbanks with pitch on each frame
     for x in test train dev; do
-        steps/make_mfcc.sh --cmd "$train_cmd" --nj $feats_nj data/${x} exp/make_mfcc/${x} ${mfccdir}
+        steps/make_mfcc.sh --cmd "$train_cmd" --nj 10 data/${x} exp/make_mfcc/${x} ${mfccdir}
     done
 
     # make a dev set
