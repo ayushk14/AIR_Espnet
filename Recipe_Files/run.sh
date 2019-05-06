@@ -60,6 +60,9 @@ recog_model=model.acc.best # set a model to be used for decoding: 'model.acc.bes
 # scheduled sampling option
 samp_prob=0.0
 
+start_date=`date`
+exp_description="ESPNET"
+
 # data
 timit=~/AIR_Data_Final
 transtype=phn
@@ -268,3 +271,6 @@ if [ ${stage} -le 5 ]; then
     --batchsize ${batchsize}
     echo "Finished"
 fi
+
+end_date=`date`
+python3 Python_Files/send_email.py "$start_date" "$end_date" "$exp_description"

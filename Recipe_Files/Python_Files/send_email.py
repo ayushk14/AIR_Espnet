@@ -34,7 +34,7 @@ subject = 'Kaldi Results Update'
 # In[5]:
 
 
-file = open('res.txt','r')
+file = open('output.txt','r')
 
 
 # In[6]:
