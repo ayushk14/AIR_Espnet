@@ -80,11 +80,14 @@ set -o pipefail
 
 train_set=train_nodev
 train_dev=train_dev
-recog_set="train_dev test"
+#recog_set="train_dev test"
+recog_set="test"
+
+use_bucket=$3
 
 if [ ${stage} -le -1 ]; then
     #local/timit_data_prep.sh ${timit} ${transtype} || exit 1
-    local_custom/data_prep.sh ${timit} || exit 1
+    local_custom/data_prep.sh ${timit} $use_bucket || exit 1
     local_custom/create_glm_stm.sh ${timit} || exit 1
 fi
 
@@ -237,5 +240,31 @@ if [ ${stage} -le 4 ]; then
         ) &
     done
     wait
+    echo "Finished"
+fi
+
+if [ ${stage} -le 5 ]; then
+    echo "stage 5: Forced alignment"
+    nj=8
+    batchsize=0
+
+    #### use CPU for decoding
+    ngpu=0
+    mkdir -p ${expdir}/alignments
+    ${decode_cmd} ${expdir}/alignments/align.log \
+    asr_align.py \
+    --ngpu ${ngpu} \
+    --backend ${backend} \
+    --debugmode ${debugmode} \
+    --outdir ${expdir}/alignments/ \
+    --verbose ${verbose} \
+    --align-json ${align_json} \
+    --model ${expdir}/results/${recog_model}  \
+    --beam-size ${beam_size} \
+    --penalty ${penalty} \
+    --maxlenratio ${maxlenratio} \
+    --minlenratio ${minlenratio} \
+    --ctc-weight ${ctc_weight} \
+    --batchsize ${batchsize}
     echo "Finished"
 fi

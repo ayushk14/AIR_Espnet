@@ -9,10 +9,20 @@ AIR_dir = sys.argv[1]
 Recipe_dir = sys.argv[2]
 data_files = sys.argv[3]
 dict_files = sys.argv[4]
+use_bucket = sys.argv[5]
 
 # This list will be generated from the csv file above
-spk_list = ['FA','FB','MA','MB','MC']
-spk_list.sort()
+if use_bucket == 'true':
+    train_spk_list = ['FA','FB','MA','MB','MC','UA','UB','UC','UD','UE']
+else:
+    train_spk_list = ['FA','FB','MA','MB','MC']
+train_spk_list.sort()
+
+test_spk_list = ['FA','FB','MA','MB','MC']
+test_spk_list.sort()
+
+bulk_spk_list = ['UA','UB','UC','UD','UE']
+bulk_spk_list.sort()
 
 # Experiment type either 'PER' or 'WER'
 experiment_type = 'PER'
@@ -113,6 +123,13 @@ for x in split_cat:
 
 # # spk2utt
 for x in split_cat:
+    if x == 'dev':
+        spk_list = bulk_spk_list
+    elif x == 'train':
+        spk_list = train_spk_list
+    else:
+        spk_list = test_spk_list
+
     ref_file = open(Recipe_dir+'/'+data_files+'/'+x+'.utt2spk','r')
     ref_file_content = ref_file.read().split('\n')
     ref_file_content.remove('')
@@ -140,14 +157,21 @@ for x in split_cat:
 
 
 # # spk2gender
-temp_list = []
-for spk in spk_list:
-    gender = spk[0].lower()
-    temp_str = spk+' '+gender+'\n'
-    temp_list.append(temp_str)
-temp_list.sort()
-
 for x in split_cat:
+    if x == 'dev':
+        spk_list = bulk_spk_list
+    elif x == 'train':
+        spk_list = train_spk_list
+    else:
+        spk_list = test_spk_list
+
+    temp_list = []
+    for spk in spk_list:
+        gender = spk[0].lower()
+        temp_str = spk+' '+gender+'\n'
+        temp_list.append(temp_str)
+    temp_list.sort()
+
     file = open(Recipe_dir+'/'+data_files+'/'+x+'.spk2gender','w')
     for item in temp_list:
         file.write(item)
