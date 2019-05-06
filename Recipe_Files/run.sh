@@ -253,6 +253,9 @@ if [ ${stage} -le 5 ]; then
 
     #### use CPU for decoding
     ngpu=0
+
+    align_json=/home/iiitbpics/espnet/egs/AIR_Espnet/asr1/dump/train_dev/deltafalse/data.json
+
     mkdir -p ${expdir}/alignments
     ${decode_cmd} ${expdir}/alignments/align.log \
     asr_align.py \
