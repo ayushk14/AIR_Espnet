@@ -11,8 +11,8 @@ cp -a ~/espnet/egs/timit ~/espnet/egs/$recipe_name
 rm ~/espnet/egs/$recipe_name/asr1/run.sh
 cp -a Recipe_Files/run.sh ~/espnet/egs/$recipe_name/asr1/run.sh
 
-rm ~/espnet/egs/$recipe_name/s5/local/timit_format_data.sh
-cp -a Recipe_Files/timit_format_data.sh ~/espnet/egs/$recipe_name/s5/local/timit_format_data.sh
+rm ~/espnet/egs/$recipe_name/asr1/local/timit_format_data.sh
+cp -a Recipe_Files/timit_format_data.sh ~/espnet/egs/$recipe_name/asr1/local/timit_format_data.sh
 
 rm ~/espnet/egs/$recipe_name/asr1/steps/make_mfcc.sh
 cp -a Recipe_Files/make_mfcc.sh ~/espnet/egs/$recipe_name/asr1/steps/make_mfcc.sh
