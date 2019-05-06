@@ -86,7 +86,7 @@ train_dev=train_dev
 #recog_set="train_dev test"
 recog_set="test"
 
-use_bucket=$3
+use_bucket=$1
 
 if [ ${stage} -le -1 ]; then
     #local/timit_data_prep.sh ${timit} ${transtype} || exit 1
