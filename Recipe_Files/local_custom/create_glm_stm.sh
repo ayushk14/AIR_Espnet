@@ -23,8 +23,8 @@ for x in train test dev; do
      print ";; LABEL \"M\" \"Male\" \"Male speakers\"";
    }
    { wav=$1; spk=wav; sub(/_.*/,"",spk); $1=""; ref=$0;
-     gender=(substr(spk,2,3) == "F" ? "F" : "M");
-     spk=substr(spk,2,4);
+     gender=(substr(spk,0,1) == "F" ? "F" : substr(spk,0,1) == "U" ? "U" : "M");
+     spk=substr(spk,0,2);
      printf("%s 1 %s 0.0 %f <O,%s> %s\n", wav, spk, durH[wav], gender, ref);
    }
   ' ${x}.text >${x}.stm || exit 1
