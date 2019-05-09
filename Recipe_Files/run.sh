@@ -55,6 +55,7 @@ penalty=0.0
 maxlenratio=0.0
 minlenratio=0.0
 ctc_weight=0.5
+ctc_type=builtin
 recog_model=model.acc.best # set a model to be used for decoding: 'model.acc.best' or 'model.loss.best'
 
 # scheduled sampling option
@@ -202,7 +203,8 @@ if [ ${stage} -le 3 ]; then
     --sampling-probability ${samp_prob} \
     --opt ${opt} \
     --epochs ${epochs} \
-    --patience ${patience}
+    --patience ${patience} \
+    --ctc_type ${ctc_type}
 fi
 
 if [ ${stage} -le 4 ]; then
@@ -254,7 +256,8 @@ if [ ${stage} -le 5 ]; then
     #### use CPU for decoding
     ngpu=0
 
-    align_json=/home/iiitbpics/espnet/egs/AIR_Espnet/asr1/dump/train_dev/deltafalse/data.json
+    #align_json=/home/iiitbpics/espnet/egs/AIR_Espnet/asr1/dump/train_dev/deltafalse/data.json
+    align_json=${feat_dt_dir}/data.json
 
     mkdir -p ${expdir}/alignments
     ${decode_cmd} ${expdir}/alignments/align.log \
