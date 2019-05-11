@@ -200,8 +200,7 @@ if [ ${stage} -le 3 ]; then
     --sampling-probability ${samp_prob} \
     --opt ${opt} \
     --epochs ${epochs} \
-    --patience ${patience} \
-    --ctc_type ${ctc_type}
+    --patience ${patience}
 fi
 
 if [ ${stage} -le 4 ]; then
