@@ -55,7 +55,6 @@ penalty=0.0
 maxlenratio=0.0
 minlenratio=0.0
 ctc_weight=0.5
-ctc_type=builtin
 recog_model=model.acc.best # set a model to be used for decoding: 'model.acc.best' or 'model.loss.best'
 
 # scheduled sampling option
@@ -87,11 +86,9 @@ train_dev=train_dev
 #recog_set="train_dev test"
 recog_set="test"
 
-use_bucket=$1
-
 if [ ${stage} -le -1 ]; then
     #local/timit_data_prep.sh ${timit} ${transtype} || exit 1
-    local_custom/data_prep.sh ${timit} $use_bucket || exit 1
+    local_custom/data_prep.sh ${timit} || exit 1
     local_custom/create_glm_stm.sh ${timit} || exit 1
 fi
 
