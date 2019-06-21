@@ -22,7 +22,7 @@ receiver_list.append('m.abhijith04@gmail.com')
 # In[3]:
 
 
-sender = 'khopkar.ayush.java@gmail.com'
+sender = 'EMAILID'
 
 
 # In[4]:
@@ -60,7 +60,7 @@ The results are as follows:-\n
     try:
         smtpObj = smtplib.SMTP('smtp.gmail.com',587)
         smtpObj.starttls()
-        smtpObj.login("khopkar.ayush.java@gmail.com","java@14091995~~")
+        smtpObj.login("EMAILID","PASSWORD")
         smtpObj.sendmail(sender,receiver,message)
         print('Successfully sent')
     except smtplib.SMTPException as e:
